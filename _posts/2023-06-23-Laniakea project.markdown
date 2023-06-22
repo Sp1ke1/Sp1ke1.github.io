@@ -5,6 +5,8 @@ date:   2023-06-23 00:00:00 +0200
 categories: jekyll update
 ---
 
+![Laniakea supercluster](/resources/Laniakea.jpg)
+
 # Hello there! 
 I had eventually desided not to waste another summer of my life and make actually something usefull ( or at least interesting ) and here it is: [Lanikia Game Engine][laniakea-engine]. Here I would like to do something like devlog. I'll write about interesting things that I met, problems that I've solved and just document my progress. Now some history on how it's started. 
 
