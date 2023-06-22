@@ -14,12 +14,12 @@ After 2 years I've gained some experience, worked a lot with Unreal Engine, made
 
 Now the project is at the beginning of its journey and here is a list of things that if I do I will be extremely happy: 
 
-1) 3D skeletal animations 
-2) Simple scene editor 
-3) Realistic rendering (something better than [Phong][phong-model])
-4) Small game that runs using engine
-5) Good scalable OOP design
-6) Multithreading  
+1. 3D skeletal animations 
+2. Simple scene editor 
+3. Realistic rendering (something better than [Phong][phong-model])
+4. Small game that runs using engine
+5. Good scalable OOP design
+6. Multithreading  
 
 If everything goes well, then I would like to work on other system of the engine too. It would be very interesting to work with physics, game framework, sounds and so on. But I really don't want to set a hundreds of goals and then end up with another unfinished Frankenstein. Most likely, I will still insert into it pieces of various systems along the way that just seem interesting to me, but focus will be on this mentioned things. 
 
