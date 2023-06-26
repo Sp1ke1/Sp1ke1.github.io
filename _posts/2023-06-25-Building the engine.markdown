@@ -15,7 +15,7 @@ Today's topic will be the project infrastructure and the build process. It's wor
 
 Obviously, like a "true" game programmer I develop my engine in pure C++. Cool thing about this language is that it's not only really hard to write code in it, but it's also quite a challenge to run this code on your machine. So the biggest problem along first week of development wasn't really engine code itself but the infrastructure around it and fights with build systems and IDE's. 
 
-There are plenty of different IDE's, compilers, toolchains and infrastructure to build C++ code for your machine. At the university I was mostly working with Clion. Good thing about Clion that it is multiplatform and it's not from Microsoft. The problem is that in uni 95% of the projects was some single file TaskName.cpp that we sent to grading system and got the points. We didn't really bother with questions "how to build bigger stuff with it?"
+There are plenty of different IDE's, compilers, toolchains and infrastructure to build C++ code for your machine. At the university I was mostly working with Clion. Good thing about Clion is that it is multiplatform and it not from Microsoft. The problem was is that at university like 95% of the projects was some single file TaskName.cpp that we sent to grading system and got the points. We didn't really bother with questions "how to build bigger stuff with it?"
 
 ## How to run C++ code 
 
@@ -57,11 +57,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
 
 ```     
 
-Like come on, is it even supposed to be written or read by humans?! It looks like some guy was editing text file, then sat down on keyboard and got this. Wtf is \$@? What is the difference between \$@ and \$< ? I wrote it only a year ago and now i need to google it literally each symbol to understand what is going on here. It's just awfull, never use it, ever. 
+Like come on, is it even supposed to be written or read by humans?! It looks like some guy was editing text file, then sat down on keyboard and got this. Wtf is \$@? What is the difference between \$@ and \$< ? I wrote it only a year ago and now i need to google literally each symbol to understand what is going on here. It's just awfull, never use it, ever. 
 
-And of course programmers were again to lazy to do this stuff by hand, so they made another tool that, drumroll, will now make Makefiles for them and called it CMake. Now you can write CmakeLists.txt file that describes how Makefile will be generated, call CMake and have your shiny cool makefile that knows how to compile and link your code. Fascinating. 
+And of course programmers were again to lazy to do this stuff by hand, so they made another tool that, drumroll, will now make Makefiles for them and called it CMake. Now you can write CmakeLists.txt file that describes how Makefile will be generated, then call CMake and have your shiny cool Makefile that knows how to compile and link your code. Fascinating. 
 
-CMake works with what is called targets. I understand it as something you can construct from your code. It can be executable file that can run and calculate things or it can be library that can be connected to other applications that runs and calculates things. 
+CMake works with what is called targets. I understand it as something you can construct from your code. It can be executable file that can run and calculate things or it can be library that can be connected to other applications which runs and calculates things. 
 
 By the way CMake syntax makes much, much more sense. Here is a simple example of CMakeLists.txt file: 
 
@@ -81,18 +81,18 @@ In fact modern C++ stuff usually being builded using CMake tool.
 
 ## Microsoft Visual Studio vs not Microsoft Visual Studio
 
-Unfortunately, I didn't really had experience building more or less big application using Cmake. Unreal Engine uses it's own build system that actually do everything for you. For C++ programming course we were writing dumbass MakeFiles by hand which is not really usefull. Last thing is graphics programming course. The problems is that we were using Microsoft Visual Studio toolchain for it and I didn't really liked it.
+Unfortunately, I didn't really had experience building more or less big application using Cmake. Unreal Engine uses it's own build system that actually does everything for you. For C++ programming course we were writing dumbass MakeFiles by hand which is not really usefull. Last thing is graphics programming course. The problems is that we were using Microsoft Visual Studio toolchain for it and I didn't really liked it.
 
-As far as I know Visual Studio do not work with CMake by default. It has it's own build system called MSBuild and... I believe you can actually configure it to be portable to different platforms... You can even write a CMake files and it will understand it and... Meeeeh, this project are being made for fun and study! If I want to learn how CMake works then I will learn how Cmake works. So I've started development in JetBrains Clion using pure CMake build toolchain. 
+As far as I know Visual Studio don't work with CMake by default. It has it's own build system called MSBuild and... I believe you can actually configure it to be portable to different platforms... You can even write a CMake files and it will understand it and... Meeeeh, this project are being made for fun and study! If I want to learn how CMake works then I will learn how Cmake works. So I've started development in JetBrains Clion using pure CMake build toolchain. 
 
 
 ## Laniakea CMake build 
 
-When you are creating new project, CLion prepares simple CMakeLists.txt file for you that contains executable target and when you are adding new .cpp file it gives you a choise to which targets you want to add this file. Also you can configure different build configurations by providing new targets in CMakeLists.txt files and add different profiles for Debug/Test/Release builds. 
+When you are creating a new project, CLion prepares a simple CMakeLists.txt file for you that contains an executable target. When you add a new .cpp file, it gives you a choice of which targets you want to add this file. Also, you can configure different build configurations by providing new targets in CMakeLists.txt files and adding different profiles for Debug/Test/Release builds. 
 
-I've made simple CMake file that runs the engine. But quickly I realised that I don't really want to run the engine. I would like to use engine as a library for application that is build using engine. And that's the moment when things started being tricky. 
+I've made a simple CMake file that runs the engine. But quickly I realized that I don't really want to run the engine. I would like to use the engine as a library for an application that is built using the engine. And that's the moment when things started being tricky. 
 
-So I created new SampleProject that will actually be runnable and will be used to build some simple game that uses engine from it later. This SampleProject depends on the engine library and links against it. In practice it looks like that: 
+So I created a new SampleProject that will be runnable and used to build some simple game that uses the engine from it later. This SampleProject depends on the engine library and links against it. In practice, it looks like that:
 
 ```
 # Root CMakeLists.txt
@@ -104,7 +104,7 @@ add_subdirectory( Laniakea )
 add_subdirectory( SampleProject )
 ```
 
-There is a root CMakeLists.txt file that includes both projects. Laniakea Engine that will be built as a library and SampleProject that uses Laniakea library to build executable game. 
+There is a root CMakeLists.txt file that includes both projects. Laniakea Engine will be built as a library and SampleProject that uses the Laniakea library to build an executable game.
 
 ```
 # Laniakea Engine CmakeLists.txt
@@ -113,22 +113,21 @@ add_library(LaniakeaEngine SHARED ${LANIAKEA_SOURCE_APPLICATION})
 target_link_libraries (LaniakeaEngine glfw3 opengl32)
 ``` 
 
-Laniakea Engine is built as library. Here add_library tells CMake that we want new shared library target from source files that are written to LANIAKEA_SOURCE_APPLICATION variable. 
-target_links_libraries() command tells CMake that we want to link engine library against some other 3rd party libraries ( glfw3 for windows, inputs and other system stuff and opengl for graphics for now )
+Laniakea Engine is built as a library. Here, add_library tells CMake that we want a new shared library target from source files that are written to LANIAKEA_SOURCE_APPLICATION variable. 
+target_links_libraries() command tells CMake that we want to link the engine library against some other 3rd party libraries (glfw3 for windows, inputs, and other system stuff and OpenGL for graphics for now)
 
 And here is SampleProject Cmake file: 
-
 
 ``` 
 add_executable( SampleProject ${SAMPLE_PROJECT_SOURCE} )
 target_link_libraries ( SampleProject ${SAMPLE_PROJECT_BUILD_DIR}/libLaniakeaEngine.dll )
 ``` 
 
-Unlike the engine here we are telling CMake that we want runnable execution file from source files defined in SAMPLE_PROJECT_SOURCE variable and then we are linking it against engine library that is placed in directory that is written to SAMPLE_PROJECT_BUILD_DIR variable. 
+Unlike the engine, here we are telling CMake that we want a runnable execution file from source files defined in SAMPLE_PROJECT_SOURCE variable and then we are linking it against the engine library that is placed in the directory that is written to SAMPLE_PROJECT_BUILD_DIR variable.
 
-Uff, core stuff is behind. Only few details remains. 
+Uff, core stuff is behind. Only a few details remain. 
 
-So next thing that I've made was debug/release build configurations differences. For example I wanted to turn any debug metadata off in release build and turn optimization level to maximum to gain performance. Here how it was done: 
+So the next thing that I made was debug/release build configuration differences. For example, I wanted to turn any debug metadata off in the release build and turn the optimization level to the maximum to gain performance. Here is how it was done:
 
 ``` 
 # -------- Release/Debug compiler flags --------
@@ -143,13 +142,13 @@ endif()
 add_compile_options ( ${COMPILER_FLAGS} )
 ``` 
 
-So here I check if it's debug or release mode and depending on that I set different compiler flags. 
+Here I check if it's debug or release mode and depending on that I set different compiler flags. 
 
-In release mode I am just using -O2 => optimization level 2. And in Debug mode -g => tells compiler to add debug metadata into compiled code. -WAll => show all warnings; -WExtra => show extra warnings; -pedantic => show extra extra warnings. 
+In release mode, I am just using -O2 => optimization level 2. And in Debug mode -g => tells the compiler to add debug metadata into compiled code. -WAll => show all warnings; -WExtra => show extra warnings; -pedantic => show extra extra warnings. 
 
-I belive CLion sets CMAKE_BUILD_TYPE variable depending on profile that you configured. Then i just check wheter it's Debug or Release build type and then set correct compiler flags using add_compile_options(). Easy-peasy. 
+I believe CLion sets CMAKE_BUILD_TYPE variable depending on a profile that you configured. Then I just check whether it's Debug or Release build type and then set the correct compiler flags using add_compile_options(). Easy-peasy. 
 
-Also I'am changing output directory for engine library in cmake. If it's in debug mode I am putting it into SampleProject/Build/Debug folder and if release in SampleProject/Build/Release folder. 
+Also, I am changing the output directory for the engine library in CMake. If it's in debug mode I am putting it into SampleProject/Build/Debug folder and if in release in SampleProject/Build/Release folder.
 
 ```
 # -------- Release/Debug binary directory --------
@@ -161,7 +160,7 @@ if ( CMAKE_BUILD_TYPE MATCHES Release )
 endif()
 ``` 
 
-Cool thing that I didn't know is that you can set preprocessing variables in CMake using add_compile_definitions command. 
+A cool thing that I didn't know is that you can set preprocessing variables in CMake using add_compile_definitions command.
 
 ```
 # -------- Preprocessor directives --------
@@ -177,17 +176,17 @@ IF ( WIN32 )
 ENDIF ()
 add_compile_definitions( LANIAKEA_BUILD_DLL )
 ``` 
-Here I use it to define release/debug definition and platform definitions. It's actually very usefull. For example you can put all debug logging logic under macro #ifdef LANIAKEA_BUILD_DEBUG and if it's not set it will be automatically thrown away in release build so you can save some performance on it. 
+Here I use it to define release/debug definitions and platform definitions. It's actually very useful. For example, you can put all debug logging logic under some macro like #ifdef LANIAKEA_BUILD_DEBUG and if it's not set it will be automatically thrown away in the release build so you can save some performance on it.
 
-There is some other stuff with work directories, link directories etc, but it's not really interesting and it can all be found in project github. 
+There is some other stuff with the work directories, link directories, etc, but it's not really interesting and it all can be found in project github.
 
 ![ProjectBuild][/resources/ProjectBuild.png]
 
-After all I think I got nice configuration with 4 when I am quickly can rebuild game/engine and run it in different configuration modes. No need to copy-paste any libraries from voids of filesystem. Everything is at hand. 
+After all, I think I got a nice configuration with 4 simple buttons, using which I can quickly rebuild the game/engine and run it in different configuration modes. No need to copy-paste any libraries from voids of the filesystem. Everything is at hand.
 
-Next stop will I believe will be core systems. I have a skeleton of it. Hope I will share some results during this week. 
+The next stop will I believe will be core systems. I have a skeleton of it. Hope I will share some results during this week. 
 
 Thank you for reading, 
-Live long and prosper! 
+Live long and prosper!
 
-p.s. It was really struggling for me to write this post. I can't really determine which reader level of topic understanding I am aiming. I guess time will show :) 
+p.s. It was really struggling for me to write this post. I can't really determine which reader level of topic understanding I am aiming for. I guess time will show :)
