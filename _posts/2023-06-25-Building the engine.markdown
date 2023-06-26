@@ -153,7 +153,7 @@ Also, I am changing the output directory for the engine library in CMake. If it'
 ```
 # -------- Release/Debug binary directory --------
 if ( CMAKE_BUILD_TYPE MATCHES Debug )
-    set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${LANIAKEA_RELEASE_OUTPUT_DIRECTORY} )
+    set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${LANIAKEA_DEBUG_OUTPUT_DIRECTORY} )
 endif()
 if ( CMAKE_BUILD_TYPE MATCHES Release )
     set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${LANIAKEA_RELEASE_OUTPUT_DIRECTORY} )
