@@ -180,7 +180,7 @@ Here I use it to define release/debug definitions and platform definitions. It's
 
 There is some other stuff with the work directories, link directories, etc, but it's not really interesting and it all can be found in project github.
 
-![ProjectBuild][/resources/ProjectBuild.png]
+![ProjectBuild](/resources/ProjectBuild.png)
 
 After all, I think I got a nice configuration with 4 simple buttons, using which I can quickly rebuild the game/engine and run it in different configuration modes. No need to copy-paste any libraries from voids of the filesystem. Everything is at hand.
 
